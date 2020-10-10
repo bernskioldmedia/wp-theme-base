@@ -5,6 +5,13 @@ namespace BernskioldMedia\WP\ThemeBase\Abstracts;
 abstract class Child_Theme_Base extends Base_Theme {
 
 	/**
+	 * Parent Theme Prefix
+	 *
+	 * @var string
+	 */
+	protected static $parent_theme_prefix = '';
+
+	/**
 	 * Get Theme Path
 	 *
 	 * @param  string  $file_name  File Name.
@@ -24,6 +31,15 @@ abstract class Child_Theme_Base extends Base_Theme {
 	 */
 	public static function get_url( $file_name = '' ): string {
 		return get_stylesheet_directory_uri() . '/' . $file_name;
+	}
+
+	/**
+	 * Get Parent Theme Prefix
+	 *
+	 * @return string
+	 */
+	public static function get_parent_theme_prefix(): string {
+		return static::$parent_theme_prefix;
 	}
 
 }
