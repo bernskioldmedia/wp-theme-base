@@ -26,13 +26,6 @@ abstract class Base_Theme {
 	protected static $slug = '';
 
 	/**
-	 * Main plugin file path.
-	 *
-	 * @var string
-	 */
-	protected static $theme_file_path = '';
-
-	/**
 	 * The single instance of the class
 	 *
 	 * @var static
