@@ -1,9 +1,4 @@
 <?php
-/**
- *
- *  *
- * @package BernskioldMedia\WP\ThemeBase
- */
 
 namespace BernskioldMedia\WP\ThemeBase\Abstracts;
 
