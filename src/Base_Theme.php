@@ -40,6 +40,32 @@ abstract class Base_Theme {
 	protected static $theme_file_path = '';
 
 	/**
+	 * Set to true if this theme supports woocommerce.
+	 *
+	 * @var bool
+	 */
+	public static $supports_woocommece = false;
+
+	/**
+	 * Should this theme included automatic links to RSS feeds?
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#feed-links
+	 *
+	 * @var bool
+	 */
+	public static $supports_feeds = false;
+
+	/**
+	 * On which object types do we support thumbnails on.
+	 * If the array is empty, it will not add theme support at all.
+	 *
+	 * @var bool
+	 */
+	public static $supports_thumbnails = [
+		'post',
+	];
+
+	/**
 	 * Cloning is forbidden.
 	 *
 	 * @since 1.2
@@ -87,6 +113,10 @@ abstract class Base_Theme {
 			$this->boot_acf_field_groups();
 		}
 
+		if ( method_exists( static::class, 'boot_facets' ) ) {
+			$this->boot_facets();
+		}
+
 	}
 
 	/**
@@ -131,6 +161,31 @@ abstract class Base_Theme {
 		 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#customize-selective-refresh-widgets
 		 */
 		add_theme_support( 'customize-selective-refresh-widgets' );
+
+		/**
+		 * Declare theme support for woocommerce
+		 **/
+		if ( static::$supports_woocommece ) {
+			add_theme_support( 'woocommerce' );
+		}
+
+		/**
+		 * Add default posts and comments RSS feed links to head.
+		 *
+		 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#feed-links
+		 */
+		if ( static::$supports_feeds ) {
+			add_theme_support( 'automatic-feed-links' );
+		}
+
+		/*
+		 * Enable support for Post Thumbnails on posts and pages.
+		 *
+		 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#post-thumbnails
+		 */
+		if ( ! empty( static::$supports_thumbnails ) ) {
+			add_theme_support( 'post-thumbnails', static::$supports_thumbnails );
+		}
 
 	}
 
