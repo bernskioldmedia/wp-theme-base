@@ -2,19 +2,19 @@
 /**
  * Custom Login Page
  *
- * @package BernskioldMedia\WP\ThemeBase\Abstracts
+ * @package BernskioldMedia\WP\ThemeBase\Login
  */
 
-namespace BernskioldMedia\WP\ThemeBase\Abstracts;
+namespace BernskioldMedia\WP\ThemeBase\Login;
 
-use BernskioldMedia\WP\ThemeBase\Interfaces\Hoookable;
+use BernskioldMedia\WP\ThemeBase\Contracts\Hookable;
 
 /**
  * Class Custom_Login
  *
- * @package BernskioldMedia\WP\ThemeBase\Abstracts
+ * @package BernskioldMedia\WP\ThemeBase\Login
  */
-abstract class Custom_Login implements Hoookable {
+abstract class Custom_Login implements Hookable {
 
 	/**
 	 * Hooks

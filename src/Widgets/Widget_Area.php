@@ -1,15 +1,15 @@
 <?php
 
-namespace BernskioldMedia\WP\ThemeBase\Abstracts;
+namespace BernskioldMedia\WP\ThemeBase\Widgets;
 
-use BernskioldMedia\WP\ThemeBase\Interfaces\Hoookable;
+use BernskioldMedia\WP\ThemeBase\Contracts\Hookable;
 
 /**
- * Class Widget_Area_Base
+ * Class Widget_Area
  *
- * @package BernskioldMedia\WP\ThemeBase\Abstracts
+ * @package BernskioldMedia\WP\ThemeBase\Widgets
  */
-abstract class Widget_Area_Base implements Hoookable {
+abstract class Widget_Area implements Hookable {
 
 	/**
 	 * Loaded Widget Areas

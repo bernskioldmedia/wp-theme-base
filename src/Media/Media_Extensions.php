@@ -5,16 +5,16 @@
  * @package BernskioldMedia\WP\ThemeBase\Abstracts
  */
 
-namespace BernskioldMedia\WP\ThemeBase\Abstracts;
+namespace BernskioldMedia\WP\ThemeBase\Media;
 
-use BernskioldMedia\WP\ThemeBase\Interfaces\Hoookable;
+use BernskioldMedia\WP\ThemeBase\Contracts\Hookable;
 
 /**
  * Class Media_Extensions
  *
- * @package BernskioldMedia\WP\ThemeBase\Abstracts
+ * @package BernskioldMedia\WP\ThemeBase\Media
  */
-abstract class Media_Extensions implements Hoookable {
+abstract class Media_Extensions implements Hookable {
 
 	/**
 	 * Custom Image Sizes

@@ -1,6 +1,6 @@
 <?php
 
-namespace BernskioldMedia\WP\ThemeBase\Abstracts;
+namespace BernskioldMedia\WP\ThemeBase;
 
 abstract class Base_Theme {
 
@@ -31,6 +31,13 @@ abstract class Base_Theme {
 	 * @var static
 	 */
 	protected static $_instance;
+
+	/**
+	 * Main theme file path.
+	 *
+	 * @var string
+	 */
+	protected static $theme_file_path = '';
 
 	/**
 	 * Cloning is forbidden.
@@ -71,6 +78,11 @@ abstract class Base_Theme {
 
 		add_action( 'after_setup_theme', [ static::class, 'languages' ] );
 		add_action( 'after_setup_theme', [ static::class, 'theme_support' ] );
+
+		if ( method_exists( static::class, 'boot_customizer' ) ) {
+			$this->boot_customizer();
+		}
+
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-namespace BernskioldMedia\WP\ThemeBase\Abstracts;
+namespace BernskioldMedia\WP\ThemeBase;
 
 abstract class Child_Theme_Base extends Base_Theme {
 
