@@ -21,6 +21,10 @@ All notable changes to this project will be documented in this file. This projec
 ### Fixed
 - Child themes now load theme support later to support overrides.
 
+### Removed
+- Monolog dependency.
+- Testing framework dev dependencies.
+
 ## [1.0.0] - 2020-10-10
 
 First Version

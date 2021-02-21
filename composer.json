@@ -3,14 +3,9 @@
   "description": "A WordPress theme base that contains helpful base classes and functions that we can extend upon when developing WordPress themes.",
   "type": "library",
   "require": {
-	"monolog/monolog": "~1.25",
 	"php": ">=7.2"
   },
-  "require-dev": {
-	"phpunit/phpunit": "^8.2",
-	"10up/wp_mock": "dev-master",
-	"bernskioldmedia/phpcs-wordpress": "dev-master"
-  },
+  "require-dev": {},
   "license": "GPL-3.0+",
   "authors": [
 	{
@@ -24,9 +19,5 @@
 	"psr-4": {
 	  "BernskioldMedia\\WP\\ThemeBase\\": "src/"
 	}
-  },
-  "scripts": {
-	"lint": "phpcs .",
-	"lint-fix": "phpcbf ."
   }
 }
