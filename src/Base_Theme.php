@@ -88,6 +88,39 @@ abstract class Base_Theme {
 	public static $post_formats = [];
 
 	/**
+	 * Include a list of facets in this plugin (For Facet WP) to
+	 * load them with the theme.
+	 *
+	 * @var array
+	 */
+	public static $facets = [];
+
+	/**
+	 * Include a list of customizer section classes to
+	 * load them with the theme.
+	 *
+	 * @var array
+	 */
+	public static $customizer_sections = [];
+
+	/**
+	 * Include a list of ACF Field Group classes to
+	 * load them with the theme.
+	 *
+	 * @var array
+	 */
+	public static $field_groups = [];
+
+	/**
+	 * Custom Image Sizes
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/add_image_size/
+	 *
+	 * @var array
+	 */
+	protected static $sizes = [];
+
+	/**
 	 * Cloning is forbidden.
 	 *
 	 * @since 1.2
@@ -137,16 +170,30 @@ abstract class Base_Theme {
 			add_action( 'after_setup_theme', [ static::class, 'register_nav_menus' ] );
 		}
 
-		if ( method_exists( static::class, 'boot_customizer' ) ) {
-			$this->boot_customizer();
+		if ( ! empty( static::$customizer_sections ) ) {
+			foreach ( static::$customizer_sections as $class ) {
+				new $class();
+			}
 		}
 
-		if ( method_exists( static::class, 'boot_acf_field_groups' ) ) {
-			$this->boot_acf_field_groups();
+		if ( ! empty( static::$field_groups ) ) {
+			foreach ( static::$field_groups as $field_group ) {
+				add_action( 'init', [ $field_group, 'make' ], 30, 2 );
+			}
 		}
 
-		if ( method_exists( static::class, 'boot_facets' ) ) {
-			$this->boot_facets();
+		if ( ! empty( static::$facets ) ) {
+			foreach ( static::$facets as $facet ) {
+				add_filter( 'facetwp_facets', [ $facet, 'make' ] );
+			}
+		}
+
+		if ( method_exists( static::class, 'boot_custom_login' ) ) {
+			$this->boot_custom_login();
+		}
+
+		if ( ! empty( static::$sizes ) ) {
+			add_action( 'after_setup_theme', [ static::class, 'add_image_sizes' ] );
 		}
 
 	}
@@ -264,6 +311,17 @@ abstract class Base_Theme {
 	 */
 	protected static function get_menu_locations(): array {
 		return [];
+	}
+
+	/**
+	 * Set up custom images sizes in WordPress.
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/add_image_size/
+	 */
+	public static function add_image_sizes() {
+		foreach ( static::$sizes as $name => $data ) {
+			add_image_size( $name, $data['width'], $data['height'], $data['crop'] );
+		}
 	}
 
 	/*

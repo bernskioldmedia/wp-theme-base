@@ -3,9 +3,9 @@
 namespace BernskioldMedia\WP\ThemeBase\Acf;
 
 /**
- * Class FieldGroup
+ * Class Field_Group
  */
-abstract class FieldGroup {
+abstract class Field_Group {
 
 	public static function make(): void {
 		if ( ! function_exists( 'acf_add_local_field_group' ) ) {
