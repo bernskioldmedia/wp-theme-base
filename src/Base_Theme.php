@@ -66,6 +66,28 @@ abstract class Base_Theme {
 	];
 
 	/**
+	 * Add support for a custom logo.
+	 * Set to empty array or false to disable.
+	 *
+	 * @link https://developer.wordpress.org/themes/functionality/custom-logo/
+	 */
+	public static $custom_logo = [
+		'height'      => 100,
+		'width'       => 400,
+		'flex-height' => true,
+		'flex-width'  => true,
+	];
+
+	/**
+	 * Add support for post formats.
+	 *
+	 * @link https://developer.wordpress.org/themes/functionality/post-formats/
+	 *
+	 * @var array
+	 */
+	public static $post_formats = [];
+
+	/**
 	 * Cloning is forbidden.
 	 *
 	 * @since 1.2
@@ -84,9 +106,15 @@ abstract class Base_Theme {
 	/**
 	 * Class Instance
 	 *
-	 * @return static Instance Object.
+	 * @return static
 	 */
-	abstract public static function instance();
+	public static function instance() {
+		if ( ! self::$_instance ) {
+			self::$_instance = new static();
+		}
+
+		return self::$_instance;
+	}
 
 	/**
 	 * Base_Theme constructor.
@@ -104,6 +132,10 @@ abstract class Base_Theme {
 
 		add_action( 'after_setup_theme', [ static::class, 'languages' ] );
 		add_action( 'after_setup_theme', [ static::class, 'theme_support' ] );
+
+		if ( ! empty( static::get_menu_locations() ) ) {
+			add_action( 'after_setup_theme', [ static::class, 'register_nav_menus' ] );
+		}
 
 		if ( method_exists( static::class, 'boot_customizer' ) ) {
 			$this->boot_customizer();
@@ -187,6 +219,51 @@ abstract class Base_Theme {
 			add_theme_support( 'post-thumbnails', static::$supports_thumbnails );
 		}
 
+		/**
+		 * Add support for a custom logo.
+		 *
+		 * @link https://developer.wordpress.org/themes/functionality/custom-logo/
+		 */
+		if ( static::$custom_logo && ! empty( static::$custom_logo ) ) {
+			add_theme_support( 'custom-logo', [
+				'height'      => 100,
+				'width'       => 400,
+				'flex-height' => true,
+				'flex-width'  => true,
+			] );
+		}
+
+		/**
+		 * Add support for post formats.
+		 *
+		 * @link https://developer.wordpress.org/themes/functionality/post-formats/
+		 */
+		if ( static::$post_formats && ! empty( static::$post_formats ) ) {
+			add_theme_support( 'post-formats', static::$post_formats );
+		}
+
+	}
+
+	/**
+	 * Register Navigation Menus
+	 *
+	 * @link https://codex.wordpress.org/Function_Reference/register_nav_menus
+	 */
+	public static function register_menus(): void {
+		$locations = apply_filters( static::get_slug() . '_menu_locations', static::get_menu_locations() );
+		register_nav_menus( $locations );
+	}
+
+	/**
+	 * Get the navigation menus locations to register on the site.
+	 * Leave empty not to register any.
+	 *
+	 * Takes a key => value format of: location-key => Human Label
+	 *
+	 * @return array
+	 */
+	protected static function get_menu_locations(): array {
+		return [];
 	}
 
 	/*
