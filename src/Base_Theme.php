@@ -40,7 +40,7 @@ abstract class Base_Theme {
 	protected static $theme_file_path = '';
 
 	/**
-	 * Set to true if this theme supports woocommerce.
+	 * Set to true if this theme supports WooCommerce.
 	 *
 	 * @var bool
 	 */
