@@ -1,13 +1,13 @@
 <?php
 
-namespace BernskioldMedia\WP\ThemeBase\Interfaces;
+namespace BernskioldMedia\WP\ThemeBase\Contracts;
 
 /**
- * Interface Hoookable
+ * Interface Hookable
  *
- * @package BernskioldMedia\WP\ThemeBase\Interfaces
+ * @package BernskioldMedia\WP\ThemeBase\Contracts
  */
-interface Hoookable {
+interface Hookable {
 
 	/**
 	 * Hookable classes must implement a standardized hooks function
