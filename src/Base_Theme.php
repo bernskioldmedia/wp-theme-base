@@ -83,6 +83,10 @@ abstract class Base_Theme {
 			$this->boot_customizer();
 		}
 
+		if ( method_exists( static::class, 'boot_acf_field_groups' ) ) {
+			$this->boot_acf_field_groups();
+		}
+
 	}
 
 	/**
