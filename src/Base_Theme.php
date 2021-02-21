@@ -163,8 +163,20 @@ abstract class Base_Theme {
 	protected function init_hooks(): void {
 		do_action( static::get_slug() . '_init_hooks' );
 
+		// Load translations.
 		add_action( 'after_setup_theme', [ static::class, 'languages' ] );
-		add_action( 'after_setup_theme', [ static::class, 'theme_support' ] );
+
+		/**
+		 * Load the theme supports. If we are in a child theme though,
+		 * we should hook it on a priority after the parent theme to be able
+		 * to correctly run overrides.
+		 */
+		if ( method_exists( static::class, 'get_parent_theme_prefix' ) ) {
+			add_action( 'after_setup_theme', [ static::class, 'theme_support' ], 20 );
+		} else {
+			add_action( 'after_setup_theme', [ static::class, 'theme_support' ] );
+		}
+
 
 		if ( ! empty( static::get_menu_locations() ) ) {
 			add_action( 'after_setup_theme', [ static::class, 'register_nav_menus' ] );
