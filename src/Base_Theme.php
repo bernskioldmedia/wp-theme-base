@@ -308,7 +308,7 @@ abstract class Base_Theme {
 	 *
 	 * @link https://codex.wordpress.org/Function_Reference/register_nav_menus
 	 */
-	public static function register_menus(): void {
+	public static function register_nav_menus(): void {
 		$locations = apply_filters( static::get_slug() . '_menu_locations', static::get_menu_locations() );
 		register_nav_menus( $locations );
 	}

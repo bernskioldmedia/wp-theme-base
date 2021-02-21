@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [Unreleased]
 
+## [2.0.1] - 2021-02-21
+
+### Fixed
+- Nav menus class wasn't hooked correctly, causing an error.
+
 ## [2.0.0] - 2021-02-21
 
 ### Added
