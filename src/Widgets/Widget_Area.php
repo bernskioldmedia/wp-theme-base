@@ -13,10 +13,8 @@ abstract class Widget_Area implements Hookable {
 
 	/**
 	 * Loaded Widget Areas
-	 *
-	 * @var array
 	 */
-	protected static $widget_areas = [];
+	protected static array $widget_areas = [];
 
 	/**
 	 * Widget_Area_Base constructor.
@@ -43,11 +41,8 @@ abstract class Widget_Area implements Hookable {
 	 * Add Widget Area
 	 *
 	 * @link https://codex.wordpress.org/Function_Reference/register_sidebar
-	 *
-	 * @param  array  $args  Arguments.
 	 */
-	protected static function add( $args = [] ): void {
-
+	protected static function add( array $args = [] ): void {
 		$args = array_merge( [
 			'id'            => '',
 			'name'          => '',
@@ -58,7 +53,6 @@ abstract class Widget_Area implements Hookable {
 		], $args );
 
 		self::$widget_areas[ $args['id'] ] = $args;
-
 	}
 
 	/**

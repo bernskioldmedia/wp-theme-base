@@ -6,24 +6,18 @@ abstract class Base_Theme {
 
 	/**
 	 * Theme Version
-	 *
-	 * @var string
 	 */
-	protected static $version = '1.0.0';
+	protected static string $version = '1.0.0';
 
 	/**
 	 * Theme Textdomain
-	 *
-	 * @var string
 	 */
-	protected static $textdomain = '';
+	protected static string $textdomain = '';
 
 	/**
 	 * Theme Slug
-	 *
-	 * @var string
 	 */
-	protected static $slug = '';
+	protected static string $slug = '';
 
 	/**
 	 * The single instance of the class
@@ -34,34 +28,26 @@ abstract class Base_Theme {
 
 	/**
 	 * Main theme file path.
-	 *
-	 * @var string
 	 */
-	protected static $theme_file_path = '';
+	protected static string $theme_file_path = '';
 
 	/**
 	 * Set to true if this theme supports WooCommerce.
-	 *
-	 * @var bool
 	 */
-	public static $supports_woocommece = false;
+	public static bool $supports_woocommece = false;
 
 	/**
 	 * Should this theme included automatic links to RSS feeds?
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#feed-links
-	 *
-	 * @var bool
 	 */
-	public static $supports_feeds = false;
+	public static bool $supports_feeds = false;
 
 	/**
 	 * On which object types do we support thumbnails on.
 	 * If the array is empty, it will not add theme support at all.
-	 *
-	 * @var bool
 	 */
-	public static $supports_thumbnails = [
+	public static array $supports_thumbnails = [
 		'post',
 	];
 
@@ -71,7 +57,7 @@ abstract class Base_Theme {
 	 *
 	 * @link https://developer.wordpress.org/themes/functionality/custom-logo/
 	 */
-	public static $custom_logo = [
+	public static array $custom_logo = [
 		'height'      => 100,
 		'width'       => 400,
 		'flex-height' => true,
@@ -82,43 +68,33 @@ abstract class Base_Theme {
 	 * Add support for post formats.
 	 *
 	 * @link https://developer.wordpress.org/themes/functionality/post-formats/
-	 *
-	 * @var array
 	 */
-	public static $post_formats = [];
+	public static array $post_formats = [];
 
 	/**
 	 * Include a list of facets in this plugin (For Facet WP) to
 	 * load them with the theme.
-	 *
-	 * @var array
 	 */
-	public static $facets = [];
+	public static array $facets = [];
 
 	/**
 	 * Include a list of customizer section classes to
 	 * load them with the theme.
-	 *
-	 * @var array
 	 */
-	public static $customizer_sections = [];
+	public static array $customizer_sections = [];
 
 	/**
 	 * Include a list of ACF Field Group classes to
 	 * load them with the theme.
-	 *
-	 * @var array
 	 */
-	public static $field_groups = [];
+	public static array $field_groups = [];
 
 	/**
 	 * Custom Image Sizes
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/add_image_size/
-	 *
-	 * @var array
 	 */
-	protected static $sizes = [];
+	protected static array $sizes = [];
 
 	/**
 	 * Cloning is forbidden.
@@ -207,14 +183,12 @@ abstract class Base_Theme {
 		if ( ! empty( static::$sizes ) ) {
 			add_action( 'after_setup_theme', [ static::class, 'add_image_sizes' ] );
 		}
-
 	}
 
 	/**
 	 * Add theme support for: add_theme_support variables
 	 **/
 	public static function theme_support(): void {
-
 		/**
 		 * Add theme support for custom CSS in the editor.
 		 */
@@ -300,7 +274,6 @@ abstract class Base_Theme {
 		if ( static::$post_formats && ! empty( static::$post_formats ) ) {
 			add_theme_support( 'post-formats', static::$post_formats );
 		}
-
 	}
 
 	/**
@@ -318,8 +291,6 @@ abstract class Base_Theme {
 	 * Leave empty not to register any.
 	 *
 	 * Takes a key => value format of: location-key => Human Label
-	 *
-	 * @return array
 	 */
 	protected static function get_menu_locations(): array {
 		return [];
@@ -330,7 +301,7 @@ abstract class Base_Theme {
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/add_image_size/
 	 */
-	public static function add_image_sizes() {
+	public static function add_image_sizes(): void {
 		foreach ( static::$sizes as $name => $data ) {
 			add_image_size( $name, $data['width'], $data['height'], $data['crop'] );
 		}
@@ -346,74 +317,48 @@ abstract class Base_Theme {
 
 	/**
 	 * Get Theme Path
-	 *
-	 * @param  string  $file_name  File Name.
-	 *
-	 * @return string
 	 */
-	public static function get_path( $file_name = '' ): string {
+	public static function get_path( string $file_name = '' ): string {
 		return get_template_directory() . '/' . $file_name;
 	}
 
 	/**
 	 * Get a URL to a font.
-	 *
-	 * @param  string  $file_name  Font File Name.
-	 *
-	 * @return string
 	 */
-	public static function get_font_url( $file_name = '' ): string {
+	public static function get_font_url( string $file_name = '' ): string {
 		return static::get_url( 'assets/fonts/' . $file_name );
 	}
 
 	/**
 	 * Get Theme URI
-	 *
-	 * @param  string  $file_name  File Name.
-	 *
-	 * @return string
 	 */
-	public static function get_url( $file_name = '' ): string {
+	public static function get_url( string $file_name = '' ): string {
 		return get_template_directory_uri() . '/' . $file_name;
 	}
 
 	/**
 	 * Get a URL to an image.
-	 *
-	 * @param  string  $file_name  Image File Name.
-	 *
-	 * @return string
 	 */
-	public static function get_image_url( $file_name = '' ): string {
+	public static function get_image_url( string $file_name = '' ): string {
 		return static::get_url( 'assets/images/' . $file_name );
 	}
 
 	/**
 	 * Get a URL to a stylesheet.
-	 *
-	 * @param  string  $file_name  Stylesheet File Name.
-	 *
-	 * @return string
 	 */
-	public static function get_stylesheet_url( $file_name = '' ): string {
+	public static function get_stylesheet_url( string $file_name = '' ): string {
 		return static::get_url( 'assets/styles/' . $file_name );
 	}
 
 	/**
 	 * Get a URL to a script.
-	 *
-	 * @param  string  $file_name  Script File Name.
-	 *
-	 * @return string
 	 */
-	public static function get_script_url( $file_name = '' ): string {
+	public static function get_script_url( string $file_name = '' ): string {
 		return static::get_url( 'assets/scripts/' . $file_name );
 	}
 
 	/**
 	 * Get Theme Version
-	 *
-	 * @return string
 	 */
 	public static function get_version(): string {
 		return static::$version;
@@ -421,8 +366,6 @@ abstract class Base_Theme {
 
 	/**
 	 * Get the plugin textdomain.
-	 *
-	 * @return string
 	 */
 	public static function get_textdomain(): string {
 		return static::$textdomain;
@@ -430,8 +373,6 @@ abstract class Base_Theme {
 
 	/**
 	 * Get the plugin textdomain.
-	 *
-	 * @return string
 	 */
 	public static function get_slug(): string {
 		return static::$slug;

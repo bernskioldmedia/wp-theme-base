@@ -25,18 +25,16 @@ trait Has_Custom_Login {
 
 	/**
 	 * Custom Link for Login Page Logo
-	 *
-	 * @return string Login URL.
 	 */
 	public static function get_login_logo_url(): string {
 		return home_url();
 	}
 
-	abstract public static function get_path( $file_name = '' ): string;
+	abstract public static function get_path( string $file_name = '' ): string;
 
 	abstract public static function get_slug(): string;
 
-	abstract public static function get_stylesheet_url( $file_name = '' ): string;
+	abstract public static function get_stylesheet_url( string $file_name = '' ): string;
 
 	abstract public static function get_version(): string;
 
