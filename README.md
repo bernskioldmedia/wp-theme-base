@@ -273,3 +273,35 @@ protected static function get_menu_locations(): array {
 	];
 }
 ```
+
+### Custom Login Styling
+
+To add custom login styling, include the `Has_Custom_Login` trait in your main theme class that inherits `Base_Theme` or `Child_Theme_Base`.
+
+```php
+use \BernskioldMedia\WP\ThemeBase;
+
+class MyTheme extends Base_Theme {
+    use Login\Has_Custom_Login;
+
+    // ... my code
+
+}
+```
+
+This will load a stylesheet from the folder `assets/styles/dist/login.css` as well as by default load the custom logo set for the site.
+
+You can disable loading the custom logo on your main theme class like so:
+
+```php
+use \BernskioldMedia\WP\ThemeBase;
+
+class MyTheme extends Base_Theme {
+    use Login\Has_Custom_Login;
+    
+    protected static bool $disable_custom_login_logo = true;
+
+    // ... my code
+
+}
+```
