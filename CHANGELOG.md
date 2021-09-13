@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 - Support for PHP 8
+- Load custom logo on login screen by default.
 
 ### Changed
 
