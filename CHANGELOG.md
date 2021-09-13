@@ -4,13 +4,21 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [Unreleased]
 
+## [2.1.0]
+
 ### Added
 
 - Support for PHP 8
 
 ### Changed
 
+- Removed private magic methods for wakeup and clone.
 - Upgrade to require PHP 7.4.
+
+## Fixed
+
+- Issue in the Asset Manager class where base theme class definitions would fail.
+- Issue in the Asset Manager class where hooks wouldn't correctly reference extended class methods.
 
 ## [2.0.1] - 2021-02-21
 
