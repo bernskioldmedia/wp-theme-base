@@ -21,6 +21,20 @@ trait Has_Custom_Login {
 		if ( file_exists( static::get_path( 'assets/styles/dist/login.css' ) ) ) {
 			wp_enqueue_style( static::get_slug() . '-login', static::get_stylesheet_url( 'dist/login.css' ), [], static::get_version(), 'all' );
 		}
+
+		/**
+		 * Add Custom Logo by Default
+		 */
+		if ( ! property_exists( static::class, 'disable_custom_login_logo' ) || ( property_exists( static::class,
+					'disable_custom_login_logo' ) && static::$disable_custom_login_logo !== true ) ) {
+			$logo_id  = get_theme_mod( 'custom_logo' );
+			$logo_url = wp_get_attachment_image_url( $logo_id, 'medium' );
+
+			if ( $logo_url ) {
+				$logo_css = "body.login div#login h1 a { background-image: url('$logo_url'); }";
+				wp_add_inline_style( 'website-theme', $logo_css );
+			}
+		}
 	}
 
 	/**
