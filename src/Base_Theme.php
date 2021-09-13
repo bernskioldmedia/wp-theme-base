@@ -97,22 +97,6 @@ abstract class Base_Theme {
 	protected static array $sizes = [];
 
 	/**
-	 * Cloning is forbidden.
-	 *
-	 * @since 1.2
-	 */
-	private function __clone() {
-	}
-
-	/**
-	 * Unserializing instances of this class is forbidden.
-	 *
-	 * @since 1.2
-	 */
-	private function __wakeup() {
-	}
-
-	/**
 	 * Class Instance
 	 *
 	 * @return static
