@@ -9,6 +9,15 @@ defined( 'ABSPATH' ) || exit;
 abstract class Asset_Manager implements Hookable {
 
 	/**
+	 * Set the class reference to the base theme class. That way
+	 * the magic methods for getting URLs and versions will work
+	 * automatically based on its definitions.
+	 *
+	 * @var string
+	 */
+	protected static string $base_theme_class = '';
+
+	/**
 	 * Public scripts to register.
 	 *
 	 * Takes either a simple name => subfolder array or an array
@@ -20,7 +29,7 @@ abstract class Asset_Manager implements Hookable {
 	 *      'subfolder' => string,
 	 * ]
 	 *
-	 * The subfolder is relative to the plugin root, so could be
+	 * The subfolder is relative to the theme root, so could be
 	 * for example: assets/scripts/dist
 	 *
 	 * If you use the short registration with only name => subfolder, we
@@ -49,7 +58,7 @@ abstract class Asset_Manager implements Hookable {
 	 *      'subfolder' => string,
 	 * ]
 	 *
-	 * The subfolder is relative to the plugin root, so could be
+	 * The subfolder is relative to the theme root, so could be
 	 * for example: assets/styles/dist
 	 *
 	 * If you use the short registration with only name => subfolder, we
@@ -86,38 +95,38 @@ abstract class Asset_Manager implements Hookable {
 		 * Register
 		 */
 		if ( ! empty( static::$public_scripts ) ) {
-			add_action( 'wp_enqueue_scripts', [ self::class, 'register_public_scripts' ], static::$register_priority );
+			add_action( 'wp_enqueue_scripts', [ static::class, 'register_public_scripts' ], static::$register_priority );
 		}
 
 		if ( ! empty( static::$admin_scripts ) ) {
-			add_action( 'admin_enqueue_scripts', [ self::class, 'register_admin_scripts' ], static::$register_priority );
+			add_action( 'admin_enqueue_scripts', [ static::class, 'register_admin_scripts' ], static::$register_priority );
 		}
 
 		if ( ! empty( static::$public_styles ) ) {
-			add_action( 'wp_enqueue_scripts', [ self::class, 'register_public_styles' ], static::$register_priority );
+			add_action( 'wp_enqueue_scripts', [ static::class, 'register_public_styles' ], static::$register_priority );
 		}
 
 		if ( ! empty( static::$admin_styles ) ) {
-			add_action( 'admin_enqueue_scripts', [ self::class, 'register_admin_styles' ], static::$register_priority );
+			add_action( 'admin_enqueue_scripts', [ static::class, 'register_admin_styles' ], static::$register_priority );
 		}
 
 		/**
 		 * Enqueue
 		 */
 		if ( method_exists( static::class, 'enqueue_public_scripts' ) ) {
-			add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_public_scripts' ], static::$enqueue_priority );
+			add_action( 'wp_enqueue_scripts', [ static::class, 'enqueue_public_scripts' ], static::$enqueue_priority );
 		}
 
 		if ( method_exists( static::class, 'enqueue_admin_scripts' ) ) {
-			add_action( 'admin_enqueue_scripts', [ self::class, 'enqueue_admin_scripts' ], static::$enqueue_priority );
+			add_action( 'admin_enqueue_scripts', [ static::class, 'enqueue_admin_scripts' ], static::$enqueue_priority );
 		}
 
 		if ( method_exists( static::class, 'enqueue_public_styles' ) ) {
-			add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_public_styles' ], static::$enqueue_priority );
+			add_action( 'wp_enqueue_scripts', [ static::class, 'enqueue_public_styles' ], static::$enqueue_priority );
 		}
 
 		if ( method_exists( static::class, 'enqueue_admin_styles' ) ) {
-			add_action( 'admin_enqueue_scripts', [ self::class, 'enqueue_admin_styles' ], static::$enqueue_priority );
+			add_action( 'admin_enqueue_scripts', [ static::class, 'enqueue_admin_styles' ], static::$enqueue_priority );
 		}
 	}
 
@@ -155,7 +164,7 @@ abstract class Asset_Manager implements Hookable {
 	protected static function register_scripts( array $scripts ): void {
 		foreach ( $scripts as $name => $data ) {
 			if ( is_array( $data ) ) {
-				$version      = $data['version'] ?? BasePlugin::get_version();
+				$version      = $data['version'] ?? static::$base_theme_class::get_version();
 				$dependencies = $data['dependencies'] ?? [];
 				$subfolder    = $data['subfolder'] ?? '';
 				$in_footer    = $data['in_footer'] ?? true;
@@ -163,12 +172,12 @@ abstract class Asset_Manager implements Hookable {
 				$subfolder = $data;
 				$in_footer = true;
 
-				$meta         = require_once BasePlugin::get_path( $subfolder . '/' . $name . '.asset.php' );
+				$meta         = require_once static::$base_theme_class::get_path( $subfolder . '/' . $name . '.asset.php' );
 				$dependencies = $meta['dependencies'] ?? [];
 				$version      = $meta['version'] ?? [];
 			}
 
-			wp_register_script( $name, BasePlugin::get_url( $subfolder . '/' . $name . '.js' ), $dependencies, $version, $in_footer );
+			wp_register_script( $name, static::$base_theme_class::get_url( $subfolder . '/' . $name . '.js' ), $dependencies, $version, $in_footer );
 		}
 	}
 
@@ -178,7 +187,7 @@ abstract class Asset_Manager implements Hookable {
 	protected static function register_styles( array $styles ): void {
 		foreach ( $styles as $name => $data ) {
 			if ( is_array( $data ) ) {
-				$version      = $data['version'] ?? BasePlugin::get_version();
+				$version      = $data['version'] ?? static::$base_theme_class::get_version();
 				$dependencies = $data['dependencies'] ?? [];
 				$subfolder    = $data['subfolder'] ?? '';
 				$media        = $data['media'] ?? 'all';
@@ -186,12 +195,12 @@ abstract class Asset_Manager implements Hookable {
 				$subfolder = $data;
 				$media     = 'all';
 
-				$meta         = require_once BasePlugin::get_path( $subfolder . '/' . $name . '.asset.php' );
+				$meta         = require_once static::$base_theme_class::get_path( $subfolder . '/' . $name . '.asset.php' );
 				$dependencies = $meta['dependencies'] ?? [];
 				$version      = $meta['version'] ?? [];
 			}
 
-			wp_register_style( $name, BasePlugin::get_url( $subfolder . '/' . $name . '.js' ), $dependencies, $version, $media );
+			wp_register_style( $name, static::$base_theme_class::get_url( $subfolder . '/' . $name . '.js' ), $dependencies, $version, $media );
 		}
 	}
 }
