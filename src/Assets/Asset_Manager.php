@@ -85,9 +85,15 @@ abstract class Asset_Manager implements Hookable {
 	}
 
 	public static function enqueue_public(): void {
+		foreach ( static::public() as $asset ) {
+			$asset->enqueue();
+		}
 	}
 
 	public static function enqueue_admin(): void {
+		foreach ( static::admin() as $asset ) {
+			$asset->enqueue();
+		}
 	}
 
 	protected static function remove_default_block_theme(): void {
