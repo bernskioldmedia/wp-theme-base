@@ -6,11 +6,16 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Changed
 
+- Refactored Asset Manager to use better object-oriented support.
 - Added ability to allow post thumbnails for all CPTs with a wildcard '*' value.
 
 ### Fixed
 
 - Login styles would not load properly.
+
+### Removed
+
+- Support for PHP7.
 
 ## [2.1.0]
 
