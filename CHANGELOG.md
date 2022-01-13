@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [Unreleased]
 
+## [3.0.0] - 2022-01-13
+
 ### Added
 
 - Helpers in the global namespace.
