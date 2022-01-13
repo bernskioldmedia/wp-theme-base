@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [Unreleased]
 
+### Added
+
+- Helpers in the global namespace.
+- Block attribute check helpers, scoped in class.
+
 ### Changed
 
 - Refactored Asset Manager to use better object-oriented support.

@@ -18,7 +18,7 @@ trait Has_Custom_Login {
 	}
 
 	public static function load_login_styles(): void {
-		if ( file_exists( static::get_stylesheet_path( 'assets/styles/dist/login.css' ) ) ) {
+		if ( file_exists( static::get_stylesheet_path( 'dist/login.css' ) ) ) {
 			wp_enqueue_style( static::get_slug() . '-login', static::get_stylesheet_url( 'dist/login.css' ), [], static::get_version(), 'all' );
 		}
 
