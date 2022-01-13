@@ -2,23 +2,26 @@
 
 namespace BernskioldMedia\WP\ThemeBase\Assets;
 
+use JetBrains\PhpStorm\ArrayShape;
+
 class Script extends Asset {
 
 	protected bool $in_footer = true;
 	protected static string $asset_folder_name = 'scripts';
 
+	#[ArrayShape( [ 'name' => "string", 'url' => "string", 'dependencies' => "array", 'version' => "null|string", 'in_footer' => "bool" ] )]
 	public function __toArray(): array {
 		return [
-			$this->name,
-			$this->url,
-			$this->dependencies,
-			$this->version,
-			$this->in_footer,
+			'name'         => $this->name,
+			'url'          => $this->url,
+			'dependencies' => $this->dependencies,
+			'version'      => $this->version,
+			'in_footer'    => $this->in_footer,
 		];
 	}
 
-	public function register(): void {
-		wp_register_script( ...$this->__toArray() );
+	public function register( ?string $default_version = null ): void {
+		wp_register_script( ...$this->get_register_args( $default_version ) );
 	}
 
 	public function enqueue(): void {

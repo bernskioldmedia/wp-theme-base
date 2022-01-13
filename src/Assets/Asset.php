@@ -28,7 +28,7 @@ abstract class Asset {
 
 	abstract public function __toArray(): array;
 
-	abstract public function register(): void;
+	abstract public function register( ?string $default_version = null ): void;
 
 	abstract public function enqueue(): void;
 
@@ -66,6 +66,16 @@ abstract class Asset {
 		$folder = static::$asset_folder_name;
 
 		return "assets/{$folder}/dist/{$file_name}";
+	}
+
+	protected function get_register_args( ?string $default_version = null ): array {
+		$args = $this->__toArray();
+
+		if ( $default_version && null === $args['version'] ) {
+			$args['version'] = $default_version;
+		}
+
+		return array_values( $args );
 	}
 
 }

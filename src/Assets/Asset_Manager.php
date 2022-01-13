@@ -2,7 +2,6 @@
 
 namespace BernskioldMedia\WP\ThemeBase\Assets;
 
-use BernskioldMedia\WP\ThemeBase\Base_Theme;
 use BernskioldMedia\WP\ThemeBase\Contracts\Hookable;
 
 defined( 'ABSPATH' ) || exit;
@@ -46,13 +45,20 @@ abstract class Asset_Manager implements Hookable {
 		return [];
 	}
 
+	/**
+	 * @return Style[]|Script[]
+	 */
+	public static function block_editor(): array {
+		return [];
+	}
+
 	public static function register_public(): void {
 
 		// We don't want the default block library theme.
 		static::remove_default_block_theme();
 
 		foreach ( static::public() as $asset ) {
-			$asset->register();
+			$asset->register( static::$theme_class::get_version() );
 		}
 
 		foreach ( static::get_styled_blocks() as $name => $shortname ) {
@@ -76,12 +82,17 @@ abstract class Asset_Manager implements Hookable {
 
 	public static function register_admin(): void {
 		foreach ( static::admin() as $asset ) {
-			$asset->register();
+			$asset->register( static::$theme_class::get_version() );
 		}
 	}
 
 	public static function load_block_editor_assets(): void {
 		static::remove_default_block_theme();
+
+		foreach ( static::block_editor() as $asset ) {
+			$asset->register( static::$theme_class::get_version() );
+			$asset->enqueue();
+		}
 	}
 
 	public static function enqueue_public(): void {
