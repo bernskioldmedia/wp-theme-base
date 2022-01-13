@@ -3,7 +3,7 @@
   "description": "A WordPress theme base that contains helpful base classes and functions that we can extend upon when developing WordPress themes.",
   "type": "library",
   "require": {
-	"php": ">=7.4|^8.0"
+	"php": "^8.0"
   },
   "require-dev": {},
   "license": "GPL-3.0+",

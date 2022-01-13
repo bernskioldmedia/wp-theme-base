@@ -309,7 +309,7 @@ abstract class Base_Theme {
 	 * Get Theme Path
 	 */
 	public static function get_path( string $file_name = '' ): string {
-		return get_theme_path( $file_name );
+		return get_theme_file_path( $file_name );
 	}
 
 	/**
