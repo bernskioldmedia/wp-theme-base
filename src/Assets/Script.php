@@ -22,7 +22,9 @@ class Script extends Asset {
 	}
 
 	public function enqueue(): void {
-		wp_enqueue_script( $this->name );
+		if ( ( $this->enqueue_if )() ) {
+			wp_enqueue_script( $this->name );
+		}
 	}
 
 	public function in_footer( bool $in_footer = true ): self {

@@ -22,7 +22,9 @@ class Style extends Asset {
 	}
 
 	public function enqueue(): void {
-		wp_enqueue_style( $this->name );
+		if ( ( $this->enqueue_if )() ) {
+			wp_enqueue_style( $this->name );
+		}
 	}
 
 	public function screen( string $screen ): self {
