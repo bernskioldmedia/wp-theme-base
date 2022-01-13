@@ -2,9 +2,6 @@
 
 namespace BernskioldMedia\WP\ThemeBase\Acf;
 
-/**
- * Class Field_Group
- */
 abstract class Field_Group {
 
 	public static function make(): void {
@@ -15,6 +12,8 @@ abstract class Field_Group {
 		acf_add_local_field_group( static::get_data() );
 	}
 
-	abstract protected static function get_data(): array;
+	protected static function get_data(): array {
+		return [];
+	}
 
 }
