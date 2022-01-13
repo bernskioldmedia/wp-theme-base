@@ -24,8 +24,8 @@ abstract class Asset_Manager implements Hookable {
 		add_action( 'wp_enqueue_scripts', [ static::class, 'enqueue_public' ], static::$enqueue_priority );
 
 		// Admin.
-		add_action( 'admin_enqueue_scripts', [ static::class, 'register_public' ], static::$register_priority );
-		add_action( 'admin_enqueue_scripts', [ static::class, 'enqueue_public' ], static::$enqueue_priority );
+		add_action( 'admin_enqueue_scripts', [ static::class, 'register_admin' ], static::$register_priority );
+		add_action( 'admin_enqueue_scripts', [ static::class, 'enqueue_admin' ], static::$enqueue_priority );
 
 		// Block editor.
 		add_action( 'enqueue_block_editor_assets', [ self::class, 'block_editor_assets' ], static::$block_editor_priority );
