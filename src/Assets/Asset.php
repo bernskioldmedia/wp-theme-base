@@ -2,15 +2,13 @@
 
 namespace BernskioldMedia\WP\ThemeBase\Assets;
 
-use Closure;
-
 abstract class Asset {
 
 	protected string $name;
 	protected string $url;
 	protected ?string $version = null;
 	protected array $dependencies = [];
-	protected ?Closure $enqueue_if = null;
+	protected bool $should_enqueue = true;
 
 	protected static string $asset_folder_name = '';
 
@@ -57,7 +55,7 @@ abstract class Asset {
 	}
 
 	public function if( callable $callback ): static {
-		$this->enqueue_if = $callback;
+		$this->should_enqueue = $callback();
 
 		return $this;
 	}

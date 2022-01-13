@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 abstract class Asset_Manager implements Hookable {
 
 	public static string $theme_class;
-	public static int $register_priority = 20;
+	public static int $register_priority = 90;
 	public static int $enqueue_priority = 100;
 	public static int $block_editor_priority = 100;
 
