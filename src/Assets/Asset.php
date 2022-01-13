@@ -10,7 +10,7 @@ abstract class Asset {
 	protected string $url;
 	protected ?string $version = null;
 	protected array $dependencies = [];
-	protected Closure $enqueue_if;
+	protected ?Closure $enqueue_if = null;
 
 	protected static string $asset_folder_name = '';
 
