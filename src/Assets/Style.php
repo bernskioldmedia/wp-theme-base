@@ -2,14 +2,11 @@
 
 namespace BernskioldMedia\WP\ThemeBase\Assets;
 
-use JetBrains\PhpStorm\ArrayShape;
-
 class Style extends Asset {
 
 	protected string $media = 'all';
 	protected static string $asset_folder_name = 'styles';
 
-	#[ArrayShape( [ 'name' => "string", 'url' => "string", 'dependencies' => "array", 'version' => "null|string", 'media' => "string" ] )]
 	public function __toArray(): array {
 		return [
 			'name'         => $this->name,

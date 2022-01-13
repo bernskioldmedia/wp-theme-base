@@ -2,14 +2,11 @@
 
 namespace BernskioldMedia\WP\ThemeBase\Assets;
 
-use JetBrains\PhpStorm\ArrayShape;
-
 class Script extends Asset {
 
 	protected bool $in_footer = true;
 	protected static string $asset_folder_name = 'scripts';
 
-	#[ArrayShape( [ 'name' => "string", 'url' => "string", 'dependencies' => "array", 'version' => "null|string", 'in_footer' => "bool" ] )]
 	public function __toArray(): array {
 		return [
 			'name'         => $this->name,
