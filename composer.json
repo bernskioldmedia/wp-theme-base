@@ -18,6 +18,9 @@
   "autoload": {
 	"psr-4": {
 	  "BernskioldMedia\\WP\\ThemeBase\\": "src/"
-	}
+	},
+	"files": [
+	  "src/global-helpers.php"
+	]
   }
 }
