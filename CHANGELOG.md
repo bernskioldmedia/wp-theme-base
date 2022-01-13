@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [Unreleased]
 
+### Changed
+
+- Added ability to allow post thumbnails for all CPTs with a wildcard '*' value.
+
+### Fixed
+
+- Login styles would not load properly.
+
 ## [2.1.0]
 
 ### Added
@@ -16,7 +24,7 @@ All notable changes to this project will be documented in this file. This projec
 - Removed private magic methods for wakeup and clone.
 - Upgrade to require PHP 7.4.
 
-## Fixed
+### Fixed
 
 - Issue in the Asset Manager class where base theme class definitions would fail.
 - Issue in the Asset Manager class where hooks wouldn't correctly reference extended class methods.

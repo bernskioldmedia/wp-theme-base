@@ -46,6 +46,7 @@ abstract class Base_Theme {
 	/**
 	 * On which object types do we support thumbnails on.
 	 * If the array is empty, it will not add theme support at all.
+	 * Set to ['*'] to allow for all post types.
 	 */
 	public static array $supports_thumbnails = [
 		'post',
@@ -233,7 +234,12 @@ abstract class Base_Theme {
 		 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#post-thumbnails
 		 */
 		if ( ! empty( static::$supports_thumbnails ) ) {
-			add_theme_support( 'post-thumbnails', static::$supports_thumbnails );
+			// Allow for wildcard "all".
+			if ( static::$supports_thumbnails[0] === '*' ) {
+				add_theme_support( 'post-thumbnails' );
+			} else {
+				add_theme_support( 'post-thumbnails', static::$supports_thumbnails );
+			}
 		}
 
 		/**
