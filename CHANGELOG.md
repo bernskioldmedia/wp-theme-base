@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file. This projec
 
 - Helpers in the global namespace.
 - Block attribute check helpers, scoped in class.
+- Boot method to main base theme class.
 
 ### Changed
 

@@ -32,6 +32,14 @@ abstract class Base_Theme {
 	protected static string $theme_file_path = '';
 
 	/**
+	 * Boot up the theme.
+	 *
+	 * Add class references to classes that implement the Hookable contract to this array
+	 * and they will be booted on load.
+	 */
+	protected static array $boot = [];
+
+	/**
 	 * Set to true if this theme supports WooCommerce.
 	 */
 	public static bool $supports_woocommece = false;
@@ -123,6 +131,12 @@ abstract class Base_Theme {
 	 */
 	protected function init_hooks(): void {
 		do_action( static::get_slug() . '_init_hooks' );
+
+		if ( ! empty( static::$boot ) ) {
+			foreach ( static::$boot as $class ) {
+				$class::hooks();
+			}
+		}
 
 		// Load translations.
 		add_action( 'after_setup_theme', [ static::class, 'languages' ] );
