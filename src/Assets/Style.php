@@ -4,7 +4,7 @@ namespace BernskioldMedia\WP\ThemeBase\Assets;
 
 class Style extends Asset {
 
-	protected string $screen = 'all';
+	protected string $media = 'all';
 	protected static string $asset_folder_name = 'styles';
 
 	public function __toArray(): array {
@@ -13,7 +13,7 @@ class Style extends Asset {
 			$this->url,
 			$this->dependencies,
 			$this->version,
-			$this->screen,
+			$this->media,
 		];
 	}
 
@@ -27,8 +27,8 @@ class Style extends Asset {
 		}
 	}
 
-	public function screen( string $screen ): self {
-		$this->screen = $screen;
+	public function media( string $media ): self {
+		$this->media = $media;
 
 		return $this;
 	}

@@ -22,7 +22,7 @@ abstract class Asset {
 		}
 	}
 
-	public static function make( string $name ): self {
+	public static function make( string $name ): static {
 		return new static( $name );
 	}
 
@@ -32,31 +32,31 @@ abstract class Asset {
 
 	abstract public function enqueue(): void;
 
-	public function file( string $file_name ): self {
+	public function file( string $file_name ): static {
 		$this->url = get_theme_file_uri( static::get_asset_relative_path( $file_name ) );
 
 		return $this;
 	}
 
-	public function url( string $url ): self {
+	public function url( string $url ): static {
 		$this->url = $url;
 
 		return $this;
 	}
 
-	public function version( string $version ): self {
+	public function version( string $version ): static {
 		$this->version = $version;
 
 		return $this;
 	}
 
-	public function dependencies( array $dependencies = [] ): self {
+	public function dependencies( array $dependencies = [] ): static {
 		$this->dependencies = $dependencies;
 
 		return $this;
 	}
 
-	public function if( callable $callback ): self {
+	public function if( callable $callback ): static {
 		$this->enqueue_if = $callback;
 
 		return $this;
