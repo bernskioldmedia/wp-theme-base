@@ -18,15 +18,14 @@ trait Has_Custom_Login {
 	}
 
 	public static function load_login_styles(): void {
-		if ( file_exists( static::get_stylesheet_url( 'dist/login.css' ) ) ) {
+		if ( file_exists( static::get_stylesheet_path( 'assets/styles/dist/login.css' ) ) ) {
 			wp_enqueue_style( static::get_slug() . '-login', static::get_stylesheet_url( 'dist/login.css' ), [], static::get_version(), 'all' );
 		}
 
 		/**
 		 * Add Custom Logo by Default
 		 */
-		if ( ! property_exists( static::class, 'disable_custom_login_logo' ) || ( property_exists( static::class,
-					'disable_custom_login_logo' ) && static::$disable_custom_login_logo !== true ) ) {
+		if ( ! property_exists( static::class, 'disable_custom_login_logo' ) || ( property_exists( static::class, 'disable_custom_login_logo' ) && static::$disable_custom_login_logo !== true ) ) {
 			$logo_id  = get_theme_mod( 'custom_logo' );
 			$logo_url = wp_get_attachment_image_url( $logo_id, 'medium' );
 
@@ -43,13 +42,4 @@ trait Has_Custom_Login {
 	public static function get_login_logo_url(): string {
 		return home_url();
 	}
-
-	abstract public static function get_path( string $file_name = '' ): string;
-
-	abstract public static function get_slug(): string;
-
-	abstract public static function get_stylesheet_url( string $file_name = '' ): string;
-
-	abstract public static function get_version(): string;
-
 }

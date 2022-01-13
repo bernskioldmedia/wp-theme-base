@@ -303,7 +303,7 @@ abstract class Base_Theme {
 	 * Get Theme Path
 	 */
 	public static function get_path( string $file_name = '' ): string {
-		return get_template_directory() . '/' . $file_name;
+		return get_theme_path( $file_name );
 	}
 
 	/**
@@ -317,7 +317,7 @@ abstract class Base_Theme {
 	 * Get Theme URI
 	 */
 	public static function get_url( string $file_name = '' ): string {
-		return get_template_directory_uri() . '/' . $file_name;
+		return get_theme_file_uri( $file_name );
 	}
 
 	/**
@@ -335,10 +335,24 @@ abstract class Base_Theme {
 	}
 
 	/**
+	 * Get a path to a stylesheet.
+	 */
+	public static function get_stylesheet_path( string $file_name = '' ): string {
+		return static::get_path( 'assets/styles/' . $file_name );
+	}
+
+	/**
 	 * Get a URL to a script.
 	 */
 	public static function get_script_url( string $file_name = '' ): string {
 		return static::get_url( 'assets/scripts/' . $file_name );
+	}
+
+	/**
+	 * Get a path to a script.
+	 */
+	public static function get_script_path( string $file_name = '' ): string {
+		return static::get_path( 'assets/scripts/' . $file_name );
 	}
 
 	/**
