@@ -12,7 +12,7 @@ trait Has_Custom_Login {
 	/**
 	 * Hooks
 	 */
-	public function boot_custom_login(): void {
+	public static function boot_custom_login(): void {
 		add_filter( 'login_headerurl', [ static::class, 'get_login_logo_url' ] );
 		add_action( 'login_enqueue_scripts', [ static::class, 'load_login_styles' ] );
 	}

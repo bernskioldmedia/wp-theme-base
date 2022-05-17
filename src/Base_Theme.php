@@ -176,7 +176,7 @@ abstract class Base_Theme {
 		}
 
 		if ( method_exists( static::class, 'boot_custom_login' ) ) {
-			$this->boot_custom_login();
+			static::boot_custom_login();
 		}
 
 		if ( ! empty( static::$sizes ) ) {
